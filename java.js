@@ -58,13 +58,15 @@ const Gameboard = {
             pointer.src = 'pointer.svg'
             turn = false
             e.target.dataset.value = 'checkedO'
+            pointer.classList.add('pointer_O') 
         }
         else{
             pointer.src = 'pointerX.svg'
             turn = true
             e.target.dataset.value = 'checkedX' 
+            pointer.classList.add('pointer_X') 
         }
-        pointer.classList.add('pointer_O')   
+          
         e.target.appendChild(pointer)
         
         if(checkWin()){ 

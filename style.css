@@ -44,6 +44,10 @@ html, body{
     width: 130px;
     
 }
+.pointer_X{
+    width: 113px;
+    
+}
 .gameover{
     display: flex;
     justify-content: center;
