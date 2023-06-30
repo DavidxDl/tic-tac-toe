@@ -52,6 +52,7 @@ const Gameboard = {
         gameOverScreen.style.display = 'none'
             screens.forEach((screen) => screen.remove());
             turn = true
+            document.querySelector('.scoreText').textContent = '< Score'
 
     
         for (let i = 0; i < 9; i++){
@@ -73,12 +74,14 @@ const Gameboard = {
         if(turn == true){
             pointer.src = 'pointer.svg'
             turn = false
+            document.querySelector('.scoreText').textContent = 'Score >'
             e.target.dataset.value = 'checkedO'
             pointer.classList.add('pointer_O') 
         }
         else{
             pointer.src = 'pointerX.svg'
             turn = true
+            document.querySelector('.scoreText').textContent = '< Score'
             e.target.dataset.value = 'checkedX' 
             pointer.classList.add('pointer_X') 
         }
