@@ -1,67 +1,84 @@
-const startBtn = document.querySelector('.Start')
-
-const screens = document.querySelectorAll('.screen')
+const resetBtn = document.querySelector('.Reset')
 const gameBoard = document.querySelector('.Gameboard');
-
-
+const gameOverScreen = document.querySelector('.gameover')
+const play_again_btn = document.querySelector('.playagain')
+const winner = document.querySelector('.winner_Text')
 let turn = true
+let checkClass = turn === true?'checked':'checked'
+const winningCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1 ,4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+    
+]
+function checkWin() {
+    return winningCombinations.some(combination => {
+        return combination.every(index => {
+            return screens[index].dataset.value === 'checkedO' && turn == false || screens[index].dataset.value === 'checkedX' && turn == true
+        })
+    })
+}
 const Gameboard = {
+
     
 
      render() {
-            gameBoard.innerHTML = ''
+        gameOverScreen.style.display = 'none'
+            screens.forEach((screen) => screen.remove());
             turn = true
     
         for (let i = 0; i < 9; i++){
         const screen = document.createElement('div');
         screen.classList.add(`screen`);
-        screen.classList.add(`${i}`);
+        screen.dataset.value = 'unchecked'
+
+       // screen.classList.add(`${i}`);
 
         gameBoard.appendChild(screen)
 
     };
     
-    
-    const screens = document.querySelectorAll('.screen'); // Move this line inside the render method
+    screens = document.querySelectorAll('.screen')
     screens.forEach((screen) => screen.addEventListener('click', Gameboard.addPointer, {once: true}));
 },
     addPointer(e) {
-      if(e.target.firstChild){return console.log(turn)}
         const pointer = document.createElement('img')
         if(turn == true){
             pointer.src = 'pointer.svg'
             turn = false
-    }
+            e.target.dataset.value = 'checkedO'
+        }
         else{
             pointer.src = 'pointerX.svg'
             turn = true
+            e.target.dataset.value = 'checkedX' 
         }
-         
-       pointer.classList.add('pointer_O')      
+        pointer.classList.add('pointer_O')   
         e.target.appendChild(pointer)
         
+        if(checkWin()){ 
+            gameOverScreen.style.display = 'flex'
+            turn == true?winner.textContent = 'X Is the winner!':winner.textContent = 'O Is the winner!' }
     },
- 
-
+    
+    
 }
-const chekingGame = function(){
-const firstScrn = document.querySelector('.screen')
-const secondScrn = document.getElementsByClassName('1')
-const thirdScrn = document.getElementsByClassName('2')
-const forthScrn = document.getElementsByClassName('3')
-const fifthScrn = document.getElementsByClassName('4')
-const sixthScrn = document.getElementsByClassName('5')
-const seventhScrn = document.getElementsByClassName('6')
-const eightScrn = document.getElementsByClassName('7')
-const ninethScrn = document.getElementsByClassName('8')
-}
-
+let screens = document.querySelectorAll('.screen')
 const player1 = {
-    name: '',
+    name: 'Player1',
+    score: 0,
     
 }
 const player2 = {
-    name: '',
+    name: 'Player2',
+    score: 0,
 
 }
-startBtn.addEventListener('click', Gameboard.render)
+play_again_btn.addEventListener('click', Gameboard.render)
+resetBtn.addEventListener('click', Gameboard.render)
+addEventListener('DOMContentLoaded', Gameboard.render)
