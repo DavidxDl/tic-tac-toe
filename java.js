@@ -16,6 +16,12 @@ const winningCombinations = [
     [2, 4, 6]
     
 ]
+function checkDraw() {
+    return [...screens].every(screen => {
+        return screen.dataset.value === 'checkedO' || screen.dataset.value === 'checkedX'
+    })
+      
+}
 function checkWin() {
     return winningCombinations.some(combination => {
         return combination.every(index => {
@@ -64,6 +70,10 @@ const Gameboard = {
         if(checkWin()){ 
             gameOverScreen.style.display = 'flex'
             turn == true?winner.textContent = 'X Is the winner!':winner.textContent = 'O Is the winner!' }
+        else if(checkDraw()){
+            gameOverScreen.style.display = 'flex'
+            winner.textContent = 'Draw!'
+        }
     },
     
     
