@@ -3,6 +3,8 @@ const gameBoard = document.querySelector('.Gameboard');
 const gameOverScreen = document.querySelector('.gameover')
 const play_again_btn = document.querySelector('.playagain')
 const winner = document.querySelector('.winner_Text')
+const player1Score = document.querySelector('.player1_Score')
+const player2Score = document.querySelector('.player2_Score')
 let turn = true
 let checkClass = turn === true?'checked':'checked'
 const winningCombinations = [
@@ -31,12 +33,26 @@ function checkWin() {
 }
 const Gameboard = {
 
+
+    reset(){
+        
+        turn = true
+        player1.score = 0
+        player2.score = 0
+        player1Score.textContent = player1.score
+        player2Score.textContent = player2.score
+        
+        Gameboard.render()
+
+
+    },
     
 
      render() {
         gameOverScreen.style.display = 'none'
             screens.forEach((screen) => screen.remove());
             turn = true
+
     
         for (let i = 0; i < 9; i++){
         const screen = document.createElement('div');
@@ -71,7 +87,18 @@ const Gameboard = {
         
         if(checkWin()){ 
             gameOverScreen.style.display = 'flex'
-            turn == true?winner.textContent = 'X Is the winner!':winner.textContent = 'O Is the winner!' }
+            if(turn == true){
+                winner.textContent = 'X Is the winner!'
+                player1.score++
+                player1Score.textContent = player1.score
+
+            }
+            else{
+                winner.textContent = 'O Is the winner!'
+                player2.score++
+                player2Score.textContent = player2.score
+            } 
+        }
         else if(checkDraw()){
             gameOverScreen.style.display = 'flex'
             winner.textContent = 'Draw!'
@@ -92,5 +119,5 @@ const player2 = {
 
 }
 play_again_btn.addEventListener('click', Gameboard.render)
-resetBtn.addEventListener('click', Gameboard.render)
+resetBtn.addEventListener('click', Gameboard.reset)
 addEventListener('DOMContentLoaded', Gameboard.render)
