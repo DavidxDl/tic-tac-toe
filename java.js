@@ -92,14 +92,14 @@ const Gameboard = {
             gameOverScreen.style.display = 'flex'
             if(turn == true){
                 winner.textContent = 'X Is the winner!'
-                player1.score++
-                player1Score.textContent = player1.score
+                player2.score++
+                player2Score.textContent = player2.score
 
             }
             else{
                 winner.textContent = 'O Is the winner!'
-                player2.score++
-                player2Score.textContent = player2.score
+                player1.score++
+                player1Score.textContent = player1.score
             } 
         }
         else if(checkDraw()){
